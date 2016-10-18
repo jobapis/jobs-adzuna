@@ -1,29 +1,24 @@
 <?php namespace JobApis\Jobs\Client\Test;
 
-use JobApis\Jobs\Client\Queries\JujuQuery;
+use JobApis\Jobs\Client\Queries\AdzunaQuery;
 use Mockery as m;
 
-class JujuQueryTest extends \PHPUnit_Framework_TestCase
+class AdzunaQueryTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        // Set up server variables for testing
-        $_SERVER['HTTP_USER_AGENT'] = uniqid();
-        $_SERVER['REMOTE_ADDR'] = uniqid();
-
-        $this->query = new JujuQuery();
+        $this->query = new AdzunaQuery();
     }
 
     public function testItAddsDefaultAttributes()
     {
-        $this->assertEquals($_SERVER['HTTP_USER_AGENT'], $this->query->get('useragent'));
-        $this->assertEquals($_SERVER['REMOTE_ADDR'], $this->query->get('ipaddress'));
+        $this->assertEquals('1', $this->query->get('page'));
     }
 
     public function testItCanGetBaseUrl()
     {
         $this->assertEquals(
-            'http://api.juju.com/jobs',
+            'http://api.adzuna.com/v1/api/jobs',
             $this->query->getBaseUrl()
         );
     }
@@ -31,7 +26,7 @@ class JujuQueryTest extends \PHPUnit_Framework_TestCase
     public function testItCanGetKeyword()
     {
         $keyword = uniqid();
-        $this->query->set('k', $keyword);
+        $this->query->set('what', $keyword);
         $this->assertEquals($keyword, $this->query->getKeyword());
     }
 
@@ -42,7 +37,9 @@ class JujuQueryTest extends \PHPUnit_Framework_TestCase
 
     public function testItReturnsTrueIfRequiredAttributesPresent()
     {
-        $this->query->set('partnerid', uniqid());
+        $this->query->set('country', uniqid());
+        $this->query->set('app_id', uniqid());
+        $this->query->set('app_key', uniqid());
 
         $this->assertTrue($this->query->isValid());
     }
@@ -50,8 +47,7 @@ class JujuQueryTest extends \PHPUnit_Framework_TestCase
     public function testItCanAddAttributesToUrl()
     {
         $url = $this->query->getUrl();
-        $this->assertContains('ipaddress=', $url);
-        $this->assertContains('useragent=', $url);
+        $this->assertContains('page=', $url);
     }
 
     /**
@@ -73,11 +69,12 @@ class JujuQueryTest extends \PHPUnit_Framework_TestCase
     public function testItSetsAndGetsValidAttributes()
     {
         $attributes = [
-            'k' => uniqid(),
-            'l' => uniqid(),
-            'c' => uniqid(),
-            'partnerid' => uniqid(),
-            'highlight' => 0,
+            'country' => uniqid(),
+            'what' => uniqid(),
+            'where' => uniqid(),
+            'distance' => rand(1,10),
+            'app_id' => uniqid(),
+            'app_key' => uniqid(),
         ];
 
         foreach ($attributes as $key => $value) {
