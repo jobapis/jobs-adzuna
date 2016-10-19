@@ -342,11 +342,7 @@ class AdzunaQuery extends AbstractQuery
      */
     public function getUrl()
     {
-        $url = $this->getBaseUrl().'/'.$this->country.'/search/1'.$this->getQueryString();
-
-        unset($this->country);
-
-        return $url;
+        return $this->getBaseUrl().'/'.$this->country.'/search/'.$this->page.'/'.$this->getQueryString();
     }
 
     /**
@@ -359,6 +355,18 @@ class AdzunaQuery extends AbstractQuery
         return [
             'page' => '1',
         ];
+    }
+
+    /**
+     * Gets the attributes to use for this API's query
+     *
+     * @var array
+     */
+    protected function getQueryAttributes()
+    {
+        unset($this->country);
+        unset($this->page);
+        return get_object_vars($this);
     }
 
     /**
