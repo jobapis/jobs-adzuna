@@ -25,7 +25,9 @@ Create a Query object and add all the parameters you'd like via the constructor.
 ```php
 // Add parameters to the query via the constructor
 $query = new JobApis\Jobs\Client\Queries\AdjunaQuery([
-    'partnerid' => YOUR_PARTNER_ID
+    'app_key' => YOUR_KEY,
+    'app_id' => YOUR_ID,
+    'country' => 'gb',
 ]);
 ```
 
@@ -33,21 +35,21 @@ Or via the "set" method. All of the parameters documented in Indeed's documentat
 
 ```php
 // Add parameters via the set() method
-$query->set('k', 'engineering');
+$query->set('what', 'engineering');
 ```
 
 You can even chain them if you'd like.
 
 ```php
 // Add parameters via the set() method
-$query->set('l', 'Chicago, IL')
-    ->set('highlight', '1');
+$query->set('where', 'London, UK')
+    ->set('page', '2');
 ```
  
 Then inject the query object into the provider.
 
 ```php
-// Instantiating an IndeedProvider with a query object
+// Instantiating the provider with a query object
 $client = new JobApis\Jobs\Client\Provider\AdzunaProvider($query);
 ```
 
