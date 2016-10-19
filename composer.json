@@ -1,7 +1,7 @@
 {
     "name": "jobapis/jobs-adzuna",
     "type": "library",
-    "description": "Making it simple to integrate your application with Juju Jobs API.",
+    "description": "Making it simple to integrate your application with Adzuna API.",
     "keywords": [
         "jobs",
         "api client",

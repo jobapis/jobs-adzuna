@@ -364,9 +364,10 @@ class AdzunaQuery extends AbstractQuery
      */
     protected function getQueryAttributes()
     {
-        unset($this->country);
-        unset($this->page);
-        return get_object_vars($this);
+        $attributes = get_object_vars($this);
+        unset($attributes['country']);
+        unset($attributes['page']);
+        return $attributes;
     }
 
     /**

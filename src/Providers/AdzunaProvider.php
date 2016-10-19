@@ -22,13 +22,22 @@ class AdzunaProvider extends AbstractProvider
         ]);
 
         $job->setDatePostedAsString($payload['created'])
-            ->setCompany($payload['company']['display_name'])
-            ->setLocation($payload['location']['display_name'])
-            ->setOccupationalCategory($payload['category']['label'])
             ->setLongitude($payload['longitude'])
             ->setLatitude($payload['latitude'])
             ->setMinimumSalary($payload['salary_min'])
             ->setMaximumSalary($payload['salary_max']);
+
+        if (isset($payload['company']) && isset($payload['company']['display_name'])) {
+            $job->setCompany($payload['company']['display_name']);
+        }
+
+        if (isset($payload['location']) && isset($payload['location']['display_name'])) {
+            $job->setLocation($payload['location']['display_name']);
+        }
+
+        if (isset($payload['category']) && isset($payload['category']['label'])) {
+            $job->setOccupationalCategory($payload['category']['label']);
+        }
 
         return $job;
     }

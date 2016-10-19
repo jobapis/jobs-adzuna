@@ -46,8 +46,9 @@ class AdzunaQueryTest extends \PHPUnit_Framework_TestCase
 
     public function testItCanAddAttributesToUrl()
     {
+        $this->query->set('app_id', uniqid());
         $url = $this->query->getUrl();
-        $this->assertContains('page=', $url);
+        $this->assertContains('app_id=', $url);
     }
 
     /**
