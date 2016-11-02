@@ -50,7 +50,7 @@ Then inject the query object into the provider.
 
 ```php
 // Instantiating the provider with a query object
-$client = new JobApis\Jobs\Client\Provider\AdzunaProvider($query);
+$client = new JobApis\Jobs\Client\Providers\AdzunaProvider($query);
 ```
 
 And call the "getJobs" method to retrieve results.
